@@ -1,0 +1,10 @@
+Boot, exact unpacking and initial menu: PASS
+profile 1 100 snapshots, X return PASS
+profile 2 100 snapshots, X return PASS
+profile 3 100 snapshots, X return PASS
+profile 4 100 snapshots, X return PASS
+Direct entry to Mediterranean; regenerated stack chains exact: PASS
+Vertical 100 frames and X return: PASS
+Final life / actual death transition to menu: PASS
+Boss defeat state returns to menu: PASS
+Repeated menu/arena/vertical switching and four tape checksums: PASS

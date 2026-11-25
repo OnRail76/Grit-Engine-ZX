@@ -1,0 +1,12 @@
+local	upstream	git_blob
+core/z80/arena/keyboard.asm	ERROR-2026/fuentes/engine/keyboard.asm	d21815dc93d408492dd2ff0409cc84ebaeac1b1e
+core/z80/arena/audio.asm	ERROR-2026/fuentes/engine/audio.asm	6130e4f339aec6e4a8a0dd061a42f685ffd45529
+core/z80/arena/quality.asm	ERROR-2026/fuentes/engine/quality.asm	bb86f2b68b4babe2e860fce7a77ff622075b137f
+core/z80/arena/scroll.asm	ERROR-2026/fuentes/engine/scroll.asm	615bf26ed0944058ffc0e2d7a9808209ababdb89
+core/z80/arena/video_state.asm	ERROR-2026/fuentes/engine/video_state.asm	4b3ba1e01571e059b440bc840063fee4ff81ac28
+core/z80/arena/actors.asm	ERROR-2026/fuentes/engine/actors.asm	b4037ccef8ad198df1bb6ed3bb3b901332c76d75
+core/z80/arena/map.asm	ERROR-2026/fuentes/engine/map.asm	7878f8114f30c38f0284df88eb149deff870e2c6
+core/z80/arena/sprites.asm	ERROR-2026/fuentes/engine/sprites.asm	c4d859767263f3afd3f5bd3f7ec7b8c142720640
+core/z80/halcones/irq_im2_v15.asm	Halcones-Estelares/fuentes/1.4/src/irq_im2_v15.asm	a194fdbc337fa3ae524e2468709b877bfeb3e5e3
+core/z80/circo/space_edge.asm	Circo-Dimensional/fuente/CIRCO_NAVIDAD85_FINAL_2026.asm:42-59	extract
+core/z80/claymore/frame_sync.asm	Grit-Claymore/src/grit_template.asm:106-124	extract

@@ -1,0 +1,10 @@
+192 ring origins: exact stack blast, both bands and wrap; HUD/attributes untouched.
+frame 0 A 62189 B 55970 head 191 player 90 152
+frame 50 A 65355 B 58820 head 141 player 146 152
+frame 100 A 62963 B 59139 head 91 player 88 110
+frame 150 A 61975 B 58139 head 41 player 88 134
+frame 200 A 63157 B 58982 head 183 player 88 152
+max cycles A/B (approx contention) 65459 61493 beam crossings model 0 halt gaps Counter({69888: 439})
+All 220 snapshots match independent masked/OR reference. Keyboard and shot pulse tested.
+Kempston auto-select via FIRE and diagonal movement verified.
+TAP five blocks: BASIC header/data, CODE header/data, raw phase data, all XOR checksums OK.

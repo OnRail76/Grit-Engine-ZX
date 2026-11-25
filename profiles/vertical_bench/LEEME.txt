@@ -1,0 +1,66 @@
+NEPTUNO ENGINE / BENCH 01 - ZX Spectrum 48K
+===========================================
+Prueba técnica autónoma. No es la fase Mediterráneo ni una reconstrucción
+certificada del código original de Flying Shark. No incluye colisiones, muerte,
+SPREAD, jefe, puntuación dinámica o lógica de campaña.
+
+Cargar Neptuno_Engine.tap completo en un emulador 48K con LOAD "". El BASIC
+hace CLEAR 24575, LOAD "" CODE, RANDOMIZE USR 24576. El kernel llama a ROM
+$0556 para leer el bloque de datos crudo de 24064 bytes que sigue en la cinta.
+Si el emulador requiere control manual de cinta, dejarla avanzar al bloque final.
+QAOP/SPACE; Kempston se selecciona al pulsar FIRE. Cuatro enemigos aéreos
+sin máscara, jugador con máscara, cuatro balas OR y pulso beeper al disparar.
+El HUD aprobado está fijo. El mapa de prueba es periódico (256 líneas).
+
+MAPA DE MEMORIA (rangos inclusivos)
+4000-57FF pantalla bitmap
+5800-5AFF atributos, escritos solamente al iniciar nivel
+5B00-5FFF espacio del sistema/BASIC (no lo sobrescribe el motor)
+6000-6BD4 entrada, datos HUD, tablas LUT y variables residentes
+6BD5-7DFF reserva residente
+7E00-7F00 tabla IM2 de 257 bytes
+7F01-7FFF reserva residente
+8000-85CF código residente
+85D0-8E8D reserva residente
+8E8E-8E90 ISR IM2 (EI/RETI)
+8E91-8EFF reserva residente
+8F00-8F01 sumidero del enlace SP
+8F02-8FFF pila (SP inicial 9000)
+9000-A1FF buffer circular compositado, 4608 bytes
+A200-B408 cadena POP/PUSH superior, 96 líneas
+B409-C611 cadena POP/PUSH inferior, 96 líneas
+C612-C6FF reserva de fase
+C700-D8FF anillo limpio del fondo, 4608 bytes
+D900-F0FF patrón de terreno 192x256 monocromo
+F100-F3FF jugador (8 fases, AND/OR)
+F400-F57F dron (8 fases OR)
+F580-F6FF caza (8 fases OR)
+F700-F75F proyectil (8 fases OR)
+F760-FFFF reserva de fase
+
+RENDER
+Cada grupo copia 12 bytes con 6 pares de registros (EXX), POP/PUSH y enlace
+SP automodificable. 174 T nominales por grupo; 33408 T por banda, sin
+prólogo/epílogo, espera ni contención. LUT de VRAM resuelta al generar las
+cadenas; LUT de enlaces y orígenes usada en ejecución para el wrap circular.
+No se borra ningún sprite en VRAM. Restauración desde anillo limpio después
+de presentar ambas mitades. El scroll introduce solo 24 bytes nuevos por
+anillo. Las cadenas están en la zona de fase para ejecutarse fuera de RAM
+contendida; deben incluirse en cada paquete de fase de este prototipo.
+DI durante el uso de SP como puntero gráfico; SP normal restaurado antes de EI.
+Mitad superior escrita detrás del barrido; inferior en siguiente intervalo
+antes del barrido. 50 Hz lógica/entrada, objetivo de presentación 25 Hz.
+No se afirma presentación a 50 fps.
+
+PRUEBAS
+Python ejecuta un subconjunto de instrucciones Z80 y modela tiempos nominales
+y contención aproximada. Compara todos los orígenes y 220 imágenes completas
+con una referencia independiente; comprueba HUD/atributos, scroll, entrada,
+proyectiles y TAP. No ejecuta la ROM real ni emula ULA/audio completamente;
+la llamada a ROM se simula. Verificar arranque, cadencia, carga y sonido en Fuse,
+ZX Spin u otro emulador 48K antes de considerar la prueba aprobada. No hay
+certificación de ausencia de tearing en hardware real.
+
+RECONSTRUCCION: python build.py (Pillow y numpy), python test_cpu.py.
+Los binarios y TAP se generan por emisor de opcodes Z80 en Python. Las fuentes
+ASM son listados del código generado; build.py es la fuente reproducible.
