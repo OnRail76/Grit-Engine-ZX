@@ -1,0 +1,30 @@
+name: Verificar GRIT ENGINE ZX V1.0
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias
+        run: python -m pip install -r requirements.txt
+      - name: Integridad de la distribución
+        run: sha256sum -c SHA256SUMS.txt
+      - name: Formatos y TAP de referencia
+        run: python grit.py verify
+      - name: Reconstruir y comprobar demo oficial
+        run: |
+          python demo/technology_demo/build.py
+          echo "1e8ba440885f76da162da0518e5120b1b16f13d4600b289c1494d19305cdfd31  demo/technology_demo/GRIT_ENGINE_TECH_DEMO_V1.0.tap" | sha256sum -c -
+      - name: Regresiones de las cinco demos
+        run: python demo/technology_demo/test_demo.py
