@@ -1,4 +1,4 @@
-# GRIT ENGINE ZX · V1.1-dev · Perfil 6: horizontal_escoria
+# GRIT ENGINE ZX · V1.1 · Perfil 6: horizontal_escoria
 
 Tony C. Ware · ZX Spectrum 48K · 2026
 
@@ -25,11 +25,11 @@ python3 grit.py demo6
 El último comando crea demo/horizontal_escoria/GRIT_ENGINE_DEMO6_RUN_AND_GUN.tap; sin campaña ni pantalla de carga, solo fase 1 y su jefe, menú técnico propio, X para salir; tras victoria o Game Over, FIRE vuelve al menú. Se genera en una copia temporal; no modifica el original. TAP probado: 35.823 bytes, seis bloques, SHA-256 450e9447ab9e19bd401e828cb4520b0c50f2acfb9e44b31c2caecd6eff44d198. La prueba automática ejecuta título, movimiento, retorno X, reinicio, rutas de victoria/derrota y Kempston. No simula un combate entero nuevo. Posteriormente el autor confirmó que la demo autónoma funciona en Fuse.
 
 ## Evidencias y límites
-Registros originales de Escoria: test_render_212_results.txt (300 actualizaciones, cinco fases, pico nominal 128.720 T); test_audio212_results.txt (nueve efectos y cuatro actores + meteorito en las cinco fases); test_boss_212_results.txt (cinco muertes, 96 posiciones de suelo y SCR final); test_kempston_results.txt (2.048 combinaciones); test_loading_results.txt (28 bloques). Son resultados del juego, no de la nueva demo. La prueba de la demo autónoma fue confirmada en Fuse por el autor. La integración con el selector común se prueba aparte; aún no se ha verificado su multicarga real ni hardware físico. No se certifica 25 FPS reales ni ABI universal.
+Registros originales de Escoria: test_render_212_results.txt (300 actualizaciones, cinco fases, pico nominal 128.720 T); test_audio212_results.txt (nueve efectos y cuatro actores + meteorito en las cinco fases); test_boss_212_results.txt (cinco muertes, 96 posiciones de suelo y SCR final); test_kempston_results.txt (2.048 combinaciones); test_loading_results.txt (28 bloques). Son resultados del juego, no de la nueva demo. La prueba de la demo autónoma fue confirmada en Fuse por el autor. La integración con el selector común pasó las regresiones y el autor confirmó su funcionamiento en Fuse el 26/11/2026. No se ha certificado hardware físico. No se certifica 25 FPS reales ni ABI universal.
 
-## Pendiente antes de V1.1 estable
-Selector común de seis perfiles construido y verificado por simulación; falta la validación en Fuse de las transferencias de cinta, actualización del manual PDF consolidado y Release. La demo de cinco perfiles V1.0 conserva su TAP y funcionamiento. Código y arte con las licencias y atribuciones originales; no se amplían derechos sobre recursos.
+## Estado de V1.1 estable
+Selector común de seis perfiles verificado por simulación y aprobado por el autor en Fuse. Esta documentación complementa el manual PDF histórico V1.0. La demo de cinco perfiles V1.0 conserva su TAP y funcionamiento. Código y arte con las licencias y atribuciones originales; no se amplían derechos sobre recursos.
 
 ## Integración del selector común
 
-La versión de desarrollo contiene un TAP de 77.802 bytes y seis bloques físicos. El bloque de 40.960 bytes de los perfiles 1–5 y el de 36.731 bytes de la sexta prueba se cargan alternativamente; no se pretende hacerlos coexistir en 48K. Las cinco pruebas anteriores conservan el cambio en RAM. La sexta entra directamente al combate y retorna al menú tras X, derrota o victoria, mediante una recarga de la misma cinta. La entrada indica PLAY CINTA SPACE; al salir indica REBOBINA Y SPACE. FIX 1: ambos cargadores esperan a que se suelte SPACE antes de acceder a la ROM, para evitar BREAK. El constructor y los mapas están descritos en [demo/technology_demo_v11/LEEME.md](../demo/technology_demo_v11/LEEME.md).
+La versión oficial contiene un TAP de 77.802 bytes y seis bloques físicos. El bloque de 40.960 bytes de los perfiles 1–5 y el de 36.731 bytes de la sexta prueba se cargan alternativamente; no se pretende hacerlos coexistir en 48K. Las cinco pruebas anteriores conservan el cambio en RAM. La sexta entra directamente al combate y retorna al menú tras X, derrota o victoria, mediante una recarga de la misma cinta. La entrada indica PLAY CINTA SPACE; al salir indica REBOBINA Y SPACE. Ambos cargadores esperan a que se suelte SPACE antes de acceder a la ROM, para evitar BREAK. El constructor y los mapas están descritos en [demo/technology_demo_v11/LEEME.md](../demo/technology_demo_v11/LEEME.md).
