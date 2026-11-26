@@ -51,4 +51,9 @@ python3 grit.py test horizontal_escoria
 python3 grit.py demo6
 ```
 
-La sexta prueba se genera como TAP autónomo de una sola fase, con su propio menú y salida X. No se ha enlazado aún con el menú de las otras cinco pruebas. Validación nominal Z80; pendiente prueba en Fuse. [Notas de integración](docs/GRIT_ENGINE_ZX_V1.1_ESCORIA.md).
+La sexta prueba autónoma fue validada en Fuse por el autor. La demo conjunta V1.1-dev ya reúne los seis perfiles en un único selector. Los perfiles 1–5 cambian en RAM; entrar o salir del perfil 6 requiere rebobinar la misma cinta y pulsar SPACE (los dos motores completos no caben simultáneamente en 48K).
+
+    python3 demo/technology_demo_v11/build.py
+    python3 demo/technology_demo_v11/test_switch.py
+
+TAP conjunto: 77.802 bytes. [Instrucciones, mapa de memoria y pruebas](demo/technology_demo_v11/LEEME.md) · [Notas de integración](docs/GRIT_ENGINE_ZX_V1.1_ESCORIA.md). GitHub Actions construye el TAP y lo publica como artefacto de ejecución si pasa las pruebas. Pendiente validar en Fuse la multicarga conjunta; V1.0 estable intacta.
