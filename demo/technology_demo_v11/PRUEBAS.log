@@ -9,6 +9,8 @@ Final life / actual death transition to menu: PASS
 Boss defeat state returns to menu: PASS
 Repeated menu/arena/vertical switching and four tape checksums: PASS
 Common menu: direct 6 and Q/A + FIRE to profile 6 PASS
+Profile 6 from tape position 4 held SPACE release PASS
+Profile 6 from tape position 0 held SPACE release PASS
 Reloaded common selector and entered arena PASS
 Profile 6 -> common menu via x PASS
 Reloaded common selector and entered arena PASS
