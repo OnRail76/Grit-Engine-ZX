@@ -1,0 +1,20 @@
+Boot, exact unpacking and initial menu: PASS
+profile 1 100 snapshots, X return PASS
+profile 2 100 snapshots, X return PASS
+profile 3 100 snapshots, X return PASS
+profile 4 100 snapshots, X return PASS
+Direct entry to Mediterranean; regenerated stack chains exact: PASS
+Vertical 100 frames and X return: PASS
+Final life / actual death transition to menu: PASS
+Boss defeat state returns to menu: PASS
+Repeated menu/arena/vertical switching and four tape checksums: PASS
+Common menu: direct 6 and Q/A + FIRE to profile 6 PASS
+Profile 6 from tape position 4 held SPACE release PASS
+Profile 6 from tape position 0 held SPACE release PASS
+Reloaded common selector and entered arena PASS
+Profile 6 -> common menu via x PASS
+Reloaded common selector and entered arena PASS
+Profile 6 -> common menu via gameover PASS
+Reloaded common selector and entered arena PASS
+Profile 6 -> common menu via win PASS
+TAP headers, direct entry, six selector, switch and return PASS (ROM tape and IRQ simulated)

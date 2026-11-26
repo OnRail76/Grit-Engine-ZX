@@ -1,11 +1,14 @@
-# GRIT ENGINE ZX V1.0
+# GRIT ENGINE ZX V1.1
 
-Primera edición oficial del banco de desarrollo modular para ZX Spectrum 48K.
+Edición oficial y única vigente del banco de desarrollo por perfiles para ZX Spectrum 48K. Tony C. Ware · 2026.
 
-- Cinco perfiles ejecutables en una Technology Demo de 41.046 bytes, con cuatro bloques TAP, sin multicargas adicionales.
-- Núcleo compacto por celdas y perfil vertical de Stack Blast adaptado de Neptuno Ataca.
-- Retorno al selector desde todos los perfiles, sin reiniciar ni rebobinar.
-- Código Z80, emisores Python, formatos, herramientas, pruebas y procedencia de cinco proyectos.
-- Manual técnico ampliado de arquitectura, memoria, interfaces y uso de la demo.
+- Seis perfiles en un único selector. Los cinco originales cambian en RAM; el sexto utiliza multicarga en la misma cinta.
+- Perfil Horizontal Run & Gun de Escoria Sideral V1.0, con compositor antiparpadeo, scroll de suelo a 2 px, compresión de sprites, director de oleadas, grandes jefes, beeper prioritario y reserva de CPU.
+- Cargador corregido: SPACE debe soltarse antes de llamar a la ROM.
+- TAP definitivo: 77.802 bytes, seis bloques, SHA-256 `82036bb66376e3465ed91e7ab0d973cd429a39d0c5a528c5b0a153ef72dc7032`.
+- Regresiones automatizadas y aprobación del binario conjunto por el autor en Fuse el 26/11/2026. Sin afirmación de validación física.
 
-Se mantiene sin cambios el ejecutable de la última demo. La versión identifica esta distribución por perfiles, no una ABI universal ya certificada. El usuario confirmó las cuatro pruebas iniciales; la revisión posterior de la quinta está respaldada por las regresiones del simulador. No se afirma validación física ni reconstrucción de todos los proyectos remotos.
+V1.0 queda como referencia histórica y entrada reproducible del constructor. Ningún cambio de jugabilidad respecto al último TAP aprobado. No se publican alfas, FIX ni demos autónomas como descargas alternativas de V1.1.
+
+## Carga
+LOAD ""; 1–6 o Q/A y FIRE; X vuelve al menú. Para acceder a 6, continuar cinta y pulsar y soltar SPACE; para regresar, rebobinar y pulsar y soltar SPACE.
