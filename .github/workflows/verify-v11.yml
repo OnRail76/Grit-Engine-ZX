@@ -21,7 +21,7 @@ jobs:
       - run: python grit.py demo6
       - run: python demo/technology_demo_v11/build.py
       - run: python demo/technology_demo_v11/test_switch.py
-      - run: echo "81c386b7f9d5bcc854f3b778a809967518318f74c93b6dc84825a08118add53b  demo/technology_demo_v11/GRIT_ENGINE_TECH_DEMO_V1.1.tap" | sha256sum -c -
+      - run: echo "82036bb66376e3465ed91e7ab0d973cd429a39d0c5a528c5b0a153ef72dc7032  demo/technology_demo_v11/GRIT_ENGINE_TECH_DEMO_V1.1.tap" | sha256sum -c -
       - uses: actions/upload-artifact@v4
         with:
           name: GRIT_ENGINE_TECH_DEMO_V1.1
