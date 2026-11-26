@@ -40,6 +40,8 @@ print('Common menu: direct 6 and Q/A + FIRE to profile 6 PASS',flush=True)
         class CPU(ns['CPU']):
             def step(self):
                 pc=self.pc;op=self.m[pc];k=self.m[pc+1] if pc<65535 else 0
+                if pc==0x0556:
+                    assert not self.keys&16, 'ROM would see BREAK (SPACE held)'
                 if op in (0x18,0x20,0x28,0x30,0x38):
                     take=op==0x18 or self.cond((op-0x20)//8);self.pc=(pc+2+(k if k<128 else k-256)*take)&65535;self.t+=12 if take else 7;return
                 if op==0xed and k in (0x47,0x5e):self.pc+=2;self.t+=8;return
@@ -49,8 +51,15 @@ print('Common menu: direct 6 and Q/A + FIRE to profile 6 PASS',flush=True)
                     if self.pc==target:return
                     self.step()
                 raise AssertionError((hex(target),hex(self.pc)))
-        c=CPU();c.m[:]=before;c.pc=OLD_STUB;c.keys=0;c.tape_pos=0
-        c.runaddr(symbols['to6']['press']);c.keys=16;c.runaddr(symbols['entry']);assert c.tape_pos==6 and c.m[0x5b00:0x5b00+len(tap[5][1])]==tap[5][1]
+        def confirm(c, labels):
+            c.runaddr(labels['press']);c.keys=16;c.runaddr(labels['confirm_release']);pos=c.tape_pos
+            for _ in range(120):c.step()
+            assert c.pc==labels['confirm_release'] and c.tape_pos==pos
+            c.keys=0
+        for start_pos in (4,0):
+            c=CPU();c.m[:]=before;c.pc=OLD_STUB;c.keys=0;c.tape_pos=start_pos
+            confirm(c,symbols['to6']);c.runaddr(symbols['entry']);assert c.tape_pos==6 and c.m[0x5b00:0x5b00+len(tap[5][1])]==tap[5][1]
+            print('Profile 6 from tape position',start_pos,'held SPACE release PASS',flush=True)
         c.keys=0;c.run_to('loop');assert c.v('phase')==1 and c.v('lives')==3
         c.step_frame(1);assert c.v('px')>80 or c.v('scroll')>0
         snapshot=bytes(c.m);state=(c.t,c.irq,c.sp,c.ie)
@@ -59,7 +68,7 @@ print('Common menu: direct 6 and Q/A + FIRE to profile 6 PASS',flush=True)
             if route=='x':c.keys=32
             else:
                 c.set('lives',0 if route=='gameover' else 1);c.pc=ns['S'][route];c.run_to('press_end');c.keys=16
-            c.runaddr(SIX_STUB);c.keys=0;c.runaddr(symbols['to5']['press']);c.keys=16;c.runaddr(0x6000)
+            c.runaddr(SIX_STUB);c.keys=0;confirm(c,symbols['to5']);c.runaddr(0x6000)
             assert c.tape_pos==4 and c.m[0x6000:]==tap[3][1]
             (work/'returned.bin').write_bytes(c.m)
             resume=s[:s.index('r=read_tap(')]+'''\nc=DemoCPU();c.m[:]=(P/'returned.bin').read_bytes();c.pc=0x6000;c.rununtil('menu_loop');c.assert_video();assert c.v('selection')==1;c.next('demo_loop',['3']);c.assert_video();c.next('menu_loop',['x']);print('Reloaded common selector and entered arena PASS',flush=True)\n'''
