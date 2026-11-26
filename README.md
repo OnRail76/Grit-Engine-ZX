@@ -1,4 +1,4 @@
-# GRIT ENGINE ZX — V1.0
+# GRIT ENGINE ZX — V1.1 en preparación
 
 **Tony C. Ware · 2026 · ZX Spectrum 48K · Z80**
 
@@ -39,3 +39,16 @@ Versión oficial del banco de desarrollo por perfiles y su demostración. Las pr
 ## Licencias
 
 Código e infraestructura MIT, conservando las atribuciones originales de `LICENSE`. Los gráficos y contenidos de los juegos se conservan como referencia; no se amplían sus permisos de reutilización. Consulta las licencias artísticas de los proyectos originales. No confundir el banco de fuentes con una licencia de los recursos gráficos.
+
+## Sexto perfil: horizontal_escoria (V1.1-dev)
+
+La rama de integración incorpora el motor horizontal de ESCORIA SIDERAL V1.0, con commit fijado, compositor en RAM por bandas sucias, sprites dispersos con diccionario, scroll de suelo a 2 px, multicarga, director de oleadas, jefes por parches y beeper con presupuesto mínimo. Conserva los cinco perfiles y la Technology Demo V1.0 sin cambios.
+
+```sh
+python3 grit.py import Escoria-Sideral
+python3 grit.py build horizontal_escoria
+python3 grit.py test horizontal_escoria
+python3 grit.py demo6
+```
+
+La sexta prueba se genera como TAP autónomo de una sola fase, con su propio menú y salida X. No se ha enlazado aún con el menú de las otras cinco pruebas. Validación nominal Z80; pendiente prueba en Fuse. [Notas de integración](docs/GRIT_ENGINE_ZX_V1.1_ESCORIA.md).
