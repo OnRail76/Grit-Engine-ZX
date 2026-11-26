@@ -51,7 +51,7 @@ python3 grit.py test horizontal_escoria
 python3 grit.py demo6
 ```
 
-La sexta prueba autónoma fue validada en Fuse por el autor. La demo conjunta V1.1-dev ya reúne los seis perfiles en un único selector. Los perfiles 1–5 cambian en RAM; entrar o salir del perfil 6 requiere rebobinar la misma cinta y pulsar SPACE (los dos motores completos no caben simultáneamente en 48K).
+La sexta prueba autónoma fue validada en Fuse por el autor. La demo conjunta V1.1-dev ya reúne los seis perfiles en un único selector. Los perfiles 1–5 cambian en RAM; entrar al perfil 6 requiere continuar la cinta y pulsar y soltar SPACE; salir de él requiere rebobinar la misma cinta y pulsar y soltar SPACE (los dos motores completos no caben simultáneamente en 48K).
 
     python3 demo/technology_demo_v11/build.py
     python3 demo/technology_demo_v11/test_switch.py
