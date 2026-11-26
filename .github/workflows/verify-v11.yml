@@ -1,7 +1,7 @@
 name: GRIT ENGINE ZX V1.1 - seis perfiles
 on:
   push:
-    branches: ['develop/v1.1-escoria']
+    branches: [main, 'develop/v1.1-escoria']
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -27,3 +27,31 @@ jobs:
           name: GRIT_ENGINE_TECH_DEMO_V1.1
           path: demo/technology_demo_v11/GRIT_ENGINE_TECH_DEMO_V1.1.tap
           if-no-files-found: error
+  release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: integration
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: GRIT_ENGINE_TECH_DEMO_V1.1
+          path: release
+      - name: Publicar única edición vigente
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          test "$(cat VERSION)" = "1.1"
+          echo "82036bb66376e3465ed91e7ab0d973cd429a39d0c5a528c5b0a153ef72dc7032  release/GRIT_ENGINE_TECH_DEMO_V1.1.tap" | sha256sum -c -
+          if gh release view v1.1 >/dev/null 2>&1; then
+            echo "La release v1.1 ya existe; no se sobrescribe."
+            exit 0
+          fi
+          mkdir -p staging/GRIT_ENGINE_ZX_V1.1
+          git archive HEAD | tar -x -C staging/GRIT_ENGINE_ZX_V1.1
+          cp release/GRIT_ENGINE_TECH_DEMO_V1.1.tap staging/GRIT_ENGINE_ZX_V1.1/
+          (cd staging && zip -qr ../release/GRIT_ENGINE_ZX_V1.1_COMPLETO.zip GRIT_ENGINE_ZX_V1.1)
+          gh release create v1.1 release/GRIT_ENGINE_TECH_DEMO_V1.1.tap release/GRIT_ENGINE_ZX_V1.1_COMPLETO.zip --target "$GITHUB_SHA" --title "GRIT ENGINE ZX V1.1 — ZX Spectrum 48K" --notes-file RELEASE_NOTES.md --latest
