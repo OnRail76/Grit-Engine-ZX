@@ -40,7 +40,7 @@ def profile(name):
             base=ROOT/'upstream'/repo
             if not base.exists():raise SystemExit(f'Perfil no descargado: python3 grit.py import {repo}')
             if git(base,'rev-parse','HEAD')!=r['commit']:raise SystemExit('Commit distinto al fijado; abortando')
-            return base/r['cwd'],r['build'],[]
+            return base/r['cwd'],r['build'],(['test_kempston.py','test_loading.py','test_audio.py','test_audio212.py','test_render.py','test_boss20.py'] if name=='horizontal_escoria' else [])
     raise SystemExit(f'Perfil desconocido: {name}')
 
 def main():
@@ -48,7 +48,7 @@ def main():
     sub.add_parser('list');q=sub.add_parser('import');q.add_argument('repo',nargs='?',default='all',choices=['all',*MANIFEST]);
     for cmd in ['build','test']:
         q=sub.add_parser(cmd);q.add_argument('profile')
-    sub.add_parser('verify')
+    sub.add_parser('verify');sub.add_parser('demo6')
     a=p.parse_args()
     if a.action=='list':
         for repo,r in MANIFEST.items():print(r['profile'],r['commit'], 'local' if r['profile']=='vertical_neptuno' or (ROOT/'upstream'/repo).is_dir() else 'import required')
@@ -57,6 +57,10 @@ def main():
         for n,r in MANIFEST.items():
             if a.repo in ('all',n):import_repo(n,r)
         return
+    if a.action=='demo6':
+        cwd,_,_=profile('horizontal_escoria')
+        run([sys.executable,ROOT/'profiles/horizontal_escoria/build_demo.py','--source',cwd],ROOT)
+        return
     if a.action=='verify':
         run([sys.executable,'-m','unittest','discover','-s','tests','-v'],ROOT)
         from core.formats import read_tap
@@ -64,6 +68,13 @@ def main():
         for f in files:print(f.relative_to(ROOT),len(read_tap(f.read_bytes())),hashlib.sha256(f.read_bytes()).hexdigest())
         want=MANIFEST['Neptuno-Ataca-ZX']['tap_sha256'];assert hashlib.sha256((ROOT/'profiles/vertical_neptuno/NEPTUNO_ATACA_011.tap').read_bytes()).hexdigest()==want
         assert hashlib.sha256((ROOT/'reference/NEPTUNO_ATACA_V1.0.tap').read_bytes()).hexdigest()==want
+        escoria=ROOT/'upstream/Escoria-Sideral/JUEGO/ESCORIA_SIDERAL_V1.0.tap'
+        if escoria.is_file():
+            record=MANIFEST['Escoria-Sideral'];assert git(escoria.parents[1],'rev-parse','HEAD')==record['commit']
+            assert hashlib.sha256(escoria.read_bytes()).hexdigest()==record['tap_sha256']
+            assert len(read_tap(escoria.read_bytes()))==28
+            print('horizontal_escoria Gold Master verified')
+        else: print('horizontal_escoria: not imported; verification skipped')
         return
     cwd,build,tests=profile(a.profile)
     if a.action=='build':run([sys.executable,*build],cwd)
